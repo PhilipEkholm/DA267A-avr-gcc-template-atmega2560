@@ -5,20 +5,20 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
-#define HIGH 0xFF
-#define LOW 0x00
-
 #define LED_TOGGLE_DELAY 500
+
+#define HIGH 0xFF
 
 int main(void)
 {
-	DDRC = HIGH;
+	/* Set all on PORTB as outputs */
+	DDRB = HIGH;
 
 	while(true){
-		PORTC = HIGH;
+		PORTB |= 1 << PB7;
 		_delay_ms(LED_TOGGLE_DELAY);
 
-		PORTC = LOW;
+		PORTB &= 0 << PB7;
 		_delay_ms(LED_TOGGLE_DELAY);
 	}
 }
