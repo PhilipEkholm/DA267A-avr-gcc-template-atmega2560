@@ -103,7 +103,7 @@ Om du sedan byggt projektet och har program.hex inuti out-mappen såväl som sat
 
 Om allting gick väl kommer det vid slutet stå "avrdude done.  Thank you.".
 
-Om du nu kollar under tangentbordet på din Arduino ska det finnas en gul/orange lysdiod som ska blinka med en halv sekunds intervall. Om detta är fallet så är du nu redo att gå vidare med labbarna.
+Om du nu kollar under tangentbordet på din Arduino ska det finnas en gul/orange lysdiod som ska blinka med en halv sekunds intervall. Om detta är fallet så grattis, du är nu redo att gå vidare med labbarna.
 
 
 
