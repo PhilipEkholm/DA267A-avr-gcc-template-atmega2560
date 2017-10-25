@@ -5,8 +5,6 @@ AVR-GCC mall anpassad för ATmega2560
 
 ## Installera avrdude
 
-Titeln är inget skämt, härnäst så ska avrdude installeras.
-
 I det normala fallet när man ska överföra det kompilerade programmet från sin dator till mikrokontrollern behöver man en programmerare för detta. Då dessa kostar lite mer och är pillriga att jobba med använder vi en annan strategi utöver det normala för att överföra program. Vi använder oss av en bootloader.
 
 En bootloader är ett program som sitter förprogrammerad i minnet på vår mikrokontroller vars uppgift är att ladda in programvaran som vi skickar över. För att få över programvaran använder vi seriell-kommunikation (via USB) för att skicka över programmet. Bootloadern kommunicerar med just avrdude så vi måste ha det programmet för att hantera överföringen.
@@ -42,7 +40,7 @@ Huvudsakligen är detta AVR-GCC, nämligen en utökning av GCC (vanligt förekom
 
 ## macOS
 
-AVR-toolchain kan installeras på en del olika sätt. För macOS är det lättaste sättet igenom att installera AVR CrossPack, som inkluderar AVR-toolchain med några andra tillägg. Den finns att ladda ner här.
+AVR-toolchain kan installeras på en del olika sätt. För macOS är det lättaste sättet igenom att installera AVR CrossPack, som inkluderar AVR-toolchain med några andra tillägg. Den finns att ladda ner här: https://obdev.at/products/crosspack/index.html
 
 ## Ubuntu/Debian-distribution:
 
