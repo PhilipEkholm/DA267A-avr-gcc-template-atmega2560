@@ -49,49 +49,65 @@ De nödvändiga paket kan fixas via apt-get:
     $ sudo apt-get install gcc-avr binutils-avr avr-libc gdb-avr
 ----------
 
-Efter att du säkerställt att AVR-toolchain är korrekt installerat är stegen ganska lika från assembler, med några fåtal undantag.
+# Projektmallen
 
-För C-programmering finns en annan mall, som man kan komma åt härifrån. Du kan ladda ner som ZIP tidigare eller forka med Git ifall du är insatt med det.
+Dra ner projektet på din egen dator ifall du inte redan gjort det. Du kan antingen ladda ner det som .zip-fil eller så kan du använda dig av Git ifall du är bekant med det:
 
-Ta sedan och öppna projektmallen. Det mesta ser sig likt ut med app-directory för själva källkoden. Kommandona för make är likadana. Däremot ligger skillnaden i Makefile. Ta och öppna upp denna.
+    $ git clone https://github.com/fille1116/avr-gcc-template-atmega2560.git avr-gcc-template-project
 
-C har lite fler parametrar som man kan jobba med. Likt tidigare ska vi kolla igenom variablerna för filen, dessa lyder:
+Du kan bygga projektet m.h.a. Make, som redan finns förinstallerat på din maskin. Navigera med terminalen in i projektet och sedan skriv:
+
+    $ make
+
+Om allting gick väl ska du få ett meddelande som säger "Project successfully built".
+
+För att säkerställa att du har rätt variabler satta för Make så öppna filen Makefile. Följande variabler kan du hitta i toppen av filen:
 
     CC:=avr-gcc
 
     CFLAGS+= \
-            -std=c99 -g \
-            -ffunction-sections \
-            -fdata-sections \
-            -fno-strict-aliasing \
-            -Wunused-function \
-            -Werror \
-            -I. \
-            -I./app \
+        -std=c99 -g \
+        -ffunction-sections \
+        -fdata-sections \
+        -fno-strict-aliasing \
+        -Wunused-function \
+        -Werror \
+        -I. \
+        -I./app \
 
     TARGET:=app/main.c
 
-    MMCU:=atmega32u4
-    MMCU_SHORT:=m32u4
+    MMCU:=atmega2560
+    MMCU_SHORT:=m2560
 
     COM_PORT:=/dev/tty.usbmodem1411
 
-CC är då kompilatorn vi ska använda, mer bestämt AVR-GCC. TARGET är densamma förutom att C-källkod skrivs i .c filer. MMCU och MMCU_SHORT är densamma. Eventuellt måste du ändra COM_PORT som tidigare nämnt för Assembler.
+CC bestämmer vilken kompilator du ska använda dig av. CFLAGS är parametrar som du kan skicka in till GCC vid kompilering. Du kan sätta egna igenom att lägga till i listan. Du kan hitta en bra samling av dessa här: https://gcc.gnu.org/onlinedocs/gcc-3.0.4/gcc_3.html
 
-Däremot är CFLAGS ny. CFLAGS tillåter en att mata in flera argument till kompilatorn med diverse bruk. De viktigaste är:
+Några intressanta flaggor är beskrivna här:
 
 - std=c99: Vi använder oss av C99 standarden då den är vanligast att använda idag för C. Du kan läsa mer om den här. Huvudskillnaden är att C99 har snäppet mer strikt syntax, som reducerar risken för fel. Den introducerar bland annat stöd för boolean-datatyp såväl som inline deklaration av nya variabler i loopar.
 - -Werror: Behandlar alla varningar som kompileringsfel. Du behöver inte använda detta ifall du inte vill, men det hjälper att motverka fel igenom att tvinga folk att använda korrekt syntax. En del varningar är tillåtna och kan tillåtas igenom -Wno-<varning> argument.
 
-För övrigt ska det inte skilja sig mer med denna Makefile. Navigera till mallen med terminalen och skriv:
+Den enda variabel du eventuellt behöver ändra är COM_PORT, beroende på vilken COM-port som din Arduino sitter på. Detta behövs sedan när du överför programmet via avrdude.
 
-    $ make
+Ifall du uppdaterar din Makefile och sen vill bygga din firmware med de nya parametrarna måste du göra en clean:
 
-Förhoppningsvis ska även här stå “Successfully built project” i terminalen. Annars finns där någonting fel. Felet bör i så fall visas i terminalen.
+    $ make clean
 
-Annars så grattis på att ha kommit så här långt! Där bör finnas en out-mapp nu där det ligger lite diverse byggfiler, bland annat objekt-filen, elf-fil och sist men inte minst hexfilen. Denna fil fungerar precis som innan för assembler. Allt som behövs för att flasha med den är korrekt satt COM-port och Arduino ansluten förhoppningsvis. Testa detta nu:
+Detta kommer ta bort out-mappen som hex-filen finns lagrad. Denna mapp tas bort permanent, så det kan vara en god idé att inte lägga in egna filer i out-mappen.
+
+Om du sedan byggt projektet och har program.hex inuti out-mappen såväl som satt upp rätt variabler i din Makefile kan du använda följande för att sända över programmet:
 
     $ make send
 
-Nu ska lysdioden blinka med ca. en halv millisekunds intervall.
+Om allting gick väl kommer det vid slutet stå "avrdude done.  Thank you.".
+
+Om du nu kollar under tangentbordet på din Arduino ska det finnas en gul/orange lysdiod som ska blinka med en halv sekunds intervall. Om detta är fallet så är du nu redo att gå vidare med labbarna.
+
+
+
+
+
+
 
