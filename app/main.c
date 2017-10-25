@@ -1,4 +1,4 @@
-#define F_CPU 16000000L
+#define F_CPU 16000000L /* CPU Clock speed */
 
 #include <stdbool.h>
 
